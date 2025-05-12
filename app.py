@@ -37,7 +37,7 @@ if user_query:
         yorum = st.text_input("Yorumunuz (isteğe bağlı)")
 
     if st.button("Gönder"):
-        log_interaction(user_query, ajan, cevap, feedback, yorum)
+        log_to_mongo(user_query, ajan, cevap, feedback, yorum)
         st.success("Teşekkür ederiz, geri bildiriminiz kaydedildi.")
 
 # ... yanıt ve geri bildirim işlemleri burada olur
