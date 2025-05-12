@@ -12,6 +12,7 @@ load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
 llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=openai_api_key)
+faiss_path = os.path.join(os.path.dirname(__file__), "faiss_index")
 vectordb = FAISS.load_local("faiss_index", OpenAIEmbeddings(api_key=openai_api_key))
 retriever = vectordb.as_retriever(search_kwargs={"k": 3})
 
