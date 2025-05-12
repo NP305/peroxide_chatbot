@@ -1,24 +1,22 @@
-import csv
-from datetime import datetime
+from pymongo import MongoClient
 import os
+from datetime import datetime
+from dotenv import load_dotenv
 
-LOG_PATH = "logs/interaction_logs.csv"
+load_dotenv()
+MONGO_URI = os.getenv("MONGO_URI")
 
-def initialize_log():
-    os.makedirs("logs", exist_ok=True)
-    if not os.path.exists(LOG_PATH):
-        with open(LOG_PATH, mode="w", newline="", encoding="utf-8") as file:
-            writer = csv.writer(file)
-            writer.writerow(["timestamp", "soru", "ajan", "yanit", "geri_bildirim", "yorum"])
+client = MongoClient(MONGO_URI)
+db = client["peroxide_logs"]
+collection = db["feedbacks"]
 
-def log_interaction(soru, ajan, yanit, geri_bildirim=None, yorum=""):
-    with open(LOG_PATH, mode="a", newline="", encoding="utf-8") as file:
-        writer = csv.writer(file)
-        writer.writerow([
-            datetime.now().isoformat(),
-            soru,
-            ajan,
-            yanit,
-            geri_bildirim,
-            yorum
-        ])
+def log_to_mongo(soru, ajan, yanit, geri_bildirim=None, yorum=""):
+    entry = {
+        "timestamp": datetime.utcnow(),
+        "soru": soru,
+        "ajan": ajan,
+        "yanit": yanit,
+        "geri_bildirim": geri_bildirim,
+        "yorum": yorum
+    }
+    collection.insert_one(entry)
