@@ -14,6 +14,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+import os
+st.write("Uygulama dizinindeki dosyalar:", os.listdir())
+
 user_query = st.text_input("Sormak istediğiniz soruyu giriniz:")
 
 if user_query:
