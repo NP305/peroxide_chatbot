@@ -3,6 +3,10 @@ from graph_build import app as graph  # LangGraph grafını buradan içe aktar
 from log_feedback import initialize_log, log_interaction
 from log_feedback import log_to_mongo, get_logs_from_mongo
 
+
+import os
+st.write("Uygulama dizinindeki dosyalar:", os.listdir())
+
 initialize_log()
 
 st.set_page_config(page_title="Goldberg Sterilizatör Yardımcısı", layout="centered")
@@ -14,8 +18,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-import os
-st.write("Uygulama dizinindeki dosyalar:", os.listdir())
+
 
 user_query = st.text_input("Sormak istediğiniz soruyu giriniz:")
 
