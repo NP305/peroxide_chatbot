@@ -1,9 +1,9 @@
-langchain
-langgraph
-chromadb
-openai
 streamlit
-pypdf
-tiktoken
-unstructured
-sentence-transformers
+langchain
+langchain-community
+langchain-openai
+openai
+chromadb
+langgraph
+python-dotenv
+pydantic
