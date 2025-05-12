@@ -3,11 +3,6 @@ from graph_build import app as graph
 from log_feedback import log_to_mongo, get_logs_from_mongo
 
 
-import os
-st.write("Uygulama dizinindeki dosyalar:", os.listdir())
-
-initialize_log()
-
 st.set_page_config(page_title="Goldberg Sterilizatör Yardımcısı", layout="centered")
 st.markdown("<h1 style='text-align: center;'>GoldbergMed H₂O₂ Sterilizatör Asistanı</h1>", unsafe_allow_html=True)
 st.markdown(
