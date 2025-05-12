@@ -1,6 +1,7 @@
 import streamlit as st
 from graph_build import app as graph  # LangGraph grafını buradan içe aktar
 from log_feedback import initialize_log, log_interaction
+from log_feedback import log_to_mongo, get_logs_from_mongo
 
 initialize_log()
 
@@ -38,3 +39,13 @@ if user_query:
     if st.button("Gönder"):
         log_interaction(user_query, ajan, cevap, feedback, yorum)
         st.success("Teşekkür ederiz, geri bildiriminiz kaydedildi.")
+
+# ... yanıt ve geri bildirim işlemleri burada olur
+
+if st.sidebar.checkbox("🧾 MongoDB Loglarını Gör"):
+    logs = get_logs_from_mongo()
+    if logs:
+        df = pd.DataFrame(logs)
+        st.dataframe(df[["timestamp", "soru", "ajan", "geri_bildirim", "yorum"]])
+    else:
+        st.info("Kayıt bulunamadı.")
