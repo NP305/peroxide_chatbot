@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from graph_build import app as graph  
 from log_feedback import log_to_mongo, get_logs_from_mongo
 
