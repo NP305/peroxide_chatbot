@@ -3,7 +3,7 @@ from langgraph.graph import StateGraph, END
 from pydantic import BaseModel
 from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from dotenv import load_dotenv
 import os
@@ -12,7 +12,7 @@ load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
 llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=openai_api_key)
-vectordb = Chroma(persist_directory="chroma_db", embedding_function=OpenAIEmbeddings(api_key=openai_api_key))
+vectordb = FAISS.load_local("faiss_index", OpenAIEmbeddings(api_key=openai_api_key))
 retriever = vectordb.as_retriever(search_kwargs={"k": 3})
 
 class ChatState(BaseModel):
